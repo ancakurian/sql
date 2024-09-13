@@ -1,3 +1,49 @@
+-- SELECT
+SELECT *
+FROM customer
+
+SELECT *
+FROM customer
+ORDER by customer_last_name, customer_first_name
+LIMIT 10
+
+-- WHERE
+SELECT *
+FROM customer_purchases
+WHERE product_id = 4 AND 9
+
+SELECT product_id, vendor_id,market_date,customer_id,quantity,quantity*cost_to_customer_per_qty as price 
+FROM customer_purchases
+WHERE vendor_id BETWEEN 8 AND 10
+
+-- CASE
+SELECT product_id, product_name,
+    CASE 
+        WHEN product_qty_type = 'unit' THEN 'item'
+        ELSE 'bulk' 
+	END product_qty_type 
+FROM product
+
+
+SELECT product_id, product_name,
+CASE 
+   WHEN product_qty_type = 'unit' THEN 'item'
+        ELSE 'bulk' 
+END AS product_qty_type, 
+CASE
+   WHEN product_name LIKE '%pepper%' THEN '1'
+        ELSE '0'
+END AS pepper_flag
+FROM product;
+
+
+-- JOIN
+SELECT vendor_name, market_date
+FROM vendor
+INNER JOIN vendor_booth_assignments
+ON vendor.vendor_id = vendor_booth_assignments.vendor_id
+
+
 --SELECT
 /* 1. Write a query that returns everything in the customer table. */
 
