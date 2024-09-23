@@ -18,6 +18,23 @@ Edit the appropriate columns -- you're making two edits -- and the NULL rows wil
 All the other rows will remain the same.) */
 
 
+-- Produce a list with all of the appropriate details. 
+
+SELECT 
+product_name || ', ' || product_size|| ' (' || product_qty_type || ')'
+FROM product
+
+
+SELECT *
+
+,NULLIF(product_size, '') -- product_size NULL values
+,coalesce(NULLIF(product_size, ''),'')
+
+,NULLIF(product_qty_type, '') -- product_qty_type NULL values
+,coalesce(NULLIF(product_qty_type, ''),'unit')
+
+from product
+
 
 
 --Windowed Functions
@@ -40,8 +57,53 @@ only the customer’s most recent visit. */
 customer_purchases table that indicates how many different times that customer has purchased that product_id. */
 
 
+--1. Write a query that selects from the customer_purchases table and numbers each customer’s visits to the farmer’s market
+
+SELECT 
+		customer_id
+		,market_date
+		,ROW_NUMBER() OVER(PARTITION BY customer_id ORDER BY market_date) as market_visit_rank
+FROM customer_purchases
+GROUP BY 
+    customer_id, market_date;
+
+	
+--2. Reverse the numbering of the query (each most recent visit is labeled 1) and write a subquery to filter the results to the most recent visit
+
+CREATE TEMP TABLE ranked_market_visits AS
+SELECT 
+    customer_id, 
+    market_date, 
+    ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY market_date DESC) AS visit_number
+FROM 
+    customer_purchases;
+
+	
+	
+SELECT 
+    customer_id, 
+    market_date
+FROM 
+    ranked_market_visits
+WHERE 
+    visit_number = 1
+ORDER BY 
+    customer_id, market_date DESC;
+
+	
+	
+--3. Write a windowed function to show how many times each client purchased the same item
+	
+SELECT 
+    customer_id, 
+    product_id, 
+    COUNT(product_id) OVER (PARTITION BY customer_id, product_id) AS product_purchase_total
+FROM 
+    customer_purchases;
 
 
+	
+	
 -- String manipulations
 /* 1. Some product names in the product table have descriptions like "Jar" or "Organic". 
 These are separated from the product name with a hyphen. 
@@ -59,7 +121,25 @@ Hint: you might need to use INSTR(product_name,'-') to find the hyphens. INSTR w
 /* 2. Filter the query to show any product_size value that contain a number with REGEXP. */
 
 
+SELECT 
+    product_name,
+    TRIM(SUBSTR(product_name, INSTR(product_name, '-') + 1)) AS product_name_and_description
+FROM 
+    product
+WHERE 
+    INSTR(product_name, '-') > 0;
 
+	
+SELECT 
+    product_name, 
+    product_size
+FROM 
+    product
+WHERE 
+    product_size REGEXP '[0-9]';
+
+	
+	
 -- UNION
 /* 1. Using a UNION, write a query that displays the market dates with the highest and lowest total sales.
 
@@ -71,5 +151,34 @@ HINT: There are a possibly a few ways to do this query, but if you're struggling
 with a UNION binding them. */
 
 
+SELECT
+	market_date
+	,total_sales
+FROM(
+	SELECT 
+    market_date, 
+    SUM(quantity*original_price) AS total_sales
+	FROM 
+    vendor_inventory
+	GROUP BY 
+    market_date
+	ORDER BY total_sales DESC
+	LIMIT 1
+) as best_day
 
+UNION
 
+SELECT
+	market_date
+	,total_sales
+FROM(
+	SELECT 
+    market_date, 
+    SUM(quantity*original_price) AS total_sales
+	FROM 
+    vendor_inventory
+	GROUP BY 
+    market_date
+	ORDER BY total_sales ASC
+	LIMIT 1
+) as worst_day

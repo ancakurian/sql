@@ -1,8 +1,14 @@
-# Homework 6: Reflecton
+# Homework 6: Reflection
 
-- Due on Saturday, September 21 at 11:59pm
-- Weight: 8% of total grade
 
-<br>
+During the last month, while learning SQL, GitHub, and Python, I have focused on learning the tools and acquiring the technical knowledge. However, a parallel topic has emerged while practicing the technical skills: asking questions, precisely asking the correct questions to understand the dataset, the business case, and how to design the technical solution.
 
-**Write**: Reflect on your previous work and how you would adjust to include ethics and inequity components. Total length should be a few paragraphs, no more than one page.
+In business analysis, the business question is normative. All business cases start with the business question. The requirements and the business solution have to reflect the question asked at the beginning of the process. The key indicators and implementation will be reflective of the business question. 
+
+In public policy, a techique often used by local governments and international organizations alike implies that the consultants work directly with the communities. Policy-makers use the participatory technique to make sure that a policy they might propose addresses the situation on the field. Social and community programs are aimed at bettering the situation for the targeted group of people. Asking questions, requesting feedback and input directly from the people benefiting from a policy defines the participatory approach. Much like a business case, policy-making revolves around the question(s) that would be answered by the proposed new policy. 
+
+Technology, unlike business analysis or public policy, is more of a tool (at times, a complex tool), not so much a system. The problem of ethics in relation with technology has reminded me of the story of the ugly duckling that saw in the lake a different reflection that the one it was expecting to see. However, by the end of the story, the duckling appears to have grown up at the level of the image seen in the water's mirror. The duckling saw a swan looking back at it and transformed its thinking patterns to fly away with the other swans. The duckling grew into a swan; yet, the story could have had a different ending -- the duckling could have chosen to walk away quacking. 
+In the case of the data solution used to define the Pakistani citizens, the mirrored image was that of a society where all the societal constructs are not falling into place. We can walk away quacking that technology is restrictive, or outright wrong. Another possible answer is to admit that our societal framing is not fitting for all realities of life, course correct our understanding, and grow. After applying the technical solution through a new understanding, we find that technology is not an impediment as it mirrors now a more congruent societal construct. Technology doesn't "define" us, but it mirrors back how we define ourselves or fail to define ourselves. 
+
+As more and more technological advancements penetrate our life, I would want to understand if technology shapes the way we form our view of the world. And, if it does, in what way? What weight that might carry for the next generation?
+Beyond SQL, the line that has remained with me from this module is "as always with data, there is no prescribed way of doing something". This brings up more questions regarding the norms based on which we use data, who sets those norms, who is responsible for the outcome once the norms have been followed and a technical solution put in place. Yet, as there isn't one way only, this makes room for creativity as well. 
